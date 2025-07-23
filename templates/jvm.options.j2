@@ -17,7 +17,7 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
-{% if indexer_jvm_xms is not none %}
+{% if indexer_jvm_xms is not null %}
 {% if indexer_jvm_xms < 32000 %}
 -Xms{{ indexer_jvm_xms }}m
 
