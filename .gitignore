@@ -1,0 +1,5 @@
+#
+# Ignore Ansible-related files
+.ansible/
+# Ignore Visual Studio Code settings
+.vscode/
