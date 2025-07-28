@@ -17,18 +17,17 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
-{% if indexer_jvm_xms is not null %}
+{% if indexer_jvm_xms is not none %}
 {% if indexer_jvm_xms < 32000 %}
 -Xms{{ indexer_jvm_xms }}m
 
 -Xmx{{ indexer_jvm_xms }}m
 {% else %}
 -Xms32000m
-
 -Xmx32000m
 {% endif %}
 {% else %}
--Xms{% if ansible_memtotal_mb < 64000 %}{{ ((ansible_memtotal_mb|int)/2)|int }}m{% else %}32000m{% endif %}
+-{% if ansible_memtotal_mb < 64000 %}{{ ((ansible_memtotal_mb|int)/2)|int }}m{% else %}32000m{% endif %}
 
 -Xmx{% if ansible_memtotal_mb < 64000 %}{{ ((ansible_memtotal_mb|int)/2)|int }}m{% else %}32000m{% endif %}
 {% endif %}
@@ -45,7 +44,7 @@
 ################################################################
 
 ## GC configuration
-8-13:-XX:+UseConcMarkSweepGC
+#8-13:-XX:+UseConcMarkSweepGC
 8-13:-XX:CMSInitiatingOccupancyFraction=75
 8-13:-XX:+UseCMSInitiatingOccupancyOnly
 
@@ -75,15 +74,15 @@
 # specify an alternative path for JVM fatal error logs
 -XX:ErrorFile=/var/log/wazuh-indexer/hs_err_pid%p.log
 
-## JDK 21 GC logging
-21:-XX:+PrintGCDetails
-21:-XX:+PrintGCDateStamps
-21:-XX:+PrintTenuringDistribution
-21:-XX:+PrintGCApplicationStoppedTime
-21:-Xloggc:/var/log/wazuh-indexer/gc.log
-21:-XX:+UseGCLogFileRotation
-21:-XX:NumberOfGCLogFiles=32
-21:-XX:GCLogFileSize=64m
+## JDK 8 GC logging
+8:-XX:+PrintGCDetails
+8:-XX:+PrintGCDateStamps
+8:-XX:+PrintTenuringDistribution
+8:-XX:+PrintGCApplicationStoppedTime
+8:-Xloggc:/var/log/wazuh-indexer/gc.log
+8:-XX:+UseGCLogFileRotation
+8:-XX:NumberOfGCLogFiles=32
+8:-XX:GCLogFileSize=64m
 
 # JDK 9+ GC logging
 9-:-Xlog:gc*,gc+age=trace,safepoint:file=/var/log/wazuh-indexer/gc.log:utctime,pid,tags:filecount=32,filesize=64m
