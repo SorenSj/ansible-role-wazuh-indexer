@@ -23,7 +23,7 @@
 
     - name: Local action | Download certificates generation tool
       ansible.builtin.copy:
-        src: "wazuh-certs-tool.sh"
+        src: "files/wazuh-certs-tool.sh"
         dest: "{{ local_certs_path }}/wazuh-certs-tool.sh"
         mode: "0770"
       when: not tool_package.stat.exists
