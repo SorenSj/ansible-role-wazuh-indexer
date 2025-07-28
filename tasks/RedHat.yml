@@ -36,6 +36,15 @@
     when:
       - ansible_distribution == 'Amazon'
 
+  - name: Update/upgrade files on server
+    ansible.builtin.yum:
+      name: "*"
+      state: latest
+      update_only: false
+      lock_timeout: 200
+    when:
+      - ansible_distribution != 'Amazon'
+
   - name: RedHat/CentOS/Fedora | Install Indexer dependencies
     ansible.builtin.yum:
       name: "{{ packages }}"
