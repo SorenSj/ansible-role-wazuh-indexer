@@ -31,3 +31,12 @@ nodes:
       ip: {{ value.ip }}
 {% endif %}
 {% endfor %}
+
+  # Logstash node
+  logstash:
+{% for (key,value) in instances.items() %}
+{% if (value.role is defined and value.role == 'logstash') %}
+    - name: {{ value.name }}
+      ip: {{ value.ip }}
+{% endif %}
+{% endfor %}
