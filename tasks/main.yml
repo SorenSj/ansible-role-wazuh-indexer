@@ -53,16 +53,16 @@
       tags:
         - security
 
-#    - name: Configure Wazuh indexer JVM memmory.
-#      ansible.builtin.template:
-#        src: "templates/jvm.options.j2"
-#        dest: "{{ indexer_conf_path }}/jvm.options"
-#        owner: root
-#        group: wazuh-indexer
-#        mode: "0644"
-#        force: true
-#      notify: restart wazuh-indexer
-#      tags: install
+    - name: Configure Wazuh indexer JVM memmory.
+      ansible.builtin.template:
+        src: "templates/jvm.options.j2"
+        dest: "{{ indexer_conf_path }}/jvm.options"
+        owner: root
+        group: wazuh-indexer
+        mode: "0644"
+        force: true
+      notify: restart wazuh-indexer
+      tags: install
 
     - name: Ensure extra time for Wazuh indexer to start on reboots
       ansible.builtin.lineinfile:
