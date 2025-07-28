@@ -3,6 +3,7 @@
 - name: Update cache
   ansible.builtin.apt:
     update_cache: true
+    cache_valid_time: 0
 
 - name: Install Wazuh indexer dependencies
   ansible.builtin.apt:
@@ -39,6 +40,12 @@
         state: present
         filename: 'wazuh-indexer'
         update_cache: true
+
+    - name: Update/upgrade files on server
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+        cache_valid_time: 0
 
 - name: Install Wazuh indexer
   ansible.builtin.apt:
